@@ -1,6 +1,10 @@
-# Spring Boot Blog Demo
+# CI/CD
 
-## About
+CI/CD demonstration of the Spring Boot Blog demo.
+
+## Spring Boot Blog Demo
+
+### About
 
 This is a demo project for practicing **Spring Boot + Thymeleaf**. 
 The idea was to build some basic blogging platform.
