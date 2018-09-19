@@ -1,0 +1,57 @@
+@Library('jenkins-library') _
+
+pipeline {
+    
+	agent {label 'jenkinsagent'}
+
+    stages {
+        stage('Download binary') {
+           steps {
+                script {
+                    def server = Artifactory.server('artifactory')
+                    def downloadSpec = """{
+                      "files":[
+                            {
+                            "pattern": "apprepo/${NAME}/${VERSION}/*.jar",
+                            "target": "deploy/"
+                            }
+                      ]
+		                }"""    
+                    server.download(downloadSpec)
+                    def buildInfo = server.download(downloadSpec)
+                    server.publishBuildInfo(buildInfo)
+                }
+           }
+        }
+		    stage('Build & Tag Image') {
+		      steps {
+		   	    dir('deploy') {
+                  sh "docker build --rm -t demo/webapp --build-arg name=${NAME} --build-arg version=${VERSION} ."
+                  sh "docker tag demo/webapp dtr.local/demo/webapp:${VERSION}"
+         	  }
+		      }
+		    }
+        stage('Push Image') {
+          steps {
+            dir('deploy') {
+              //withDockerRegistry(url: 'https://dtr.local', credentialsId: 'dtr-credentials') {
+                  sh "docker push dtr.local/demo/webapp:${VERSION}"
+              //}
+            }
+          }
+        }
+		    stage('Deploy App') {
+      	  steps {
+      	   	dir('deploy') {
+              		sh "docker stack deploy -c docker-compose.yml webapp"
+      	   	}
+      	  }
+        }
+    }//end stages
+    post {
+      always {
+        /* Use slackNotifier.groovy from shared library and provide current build result as parameter */   
+        slackNotifier(currentBuild.currentResult)
+      }
+    } 
+}

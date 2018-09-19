@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--<title>Spring Boot Thymeleaf + Spring Security</title>-->
+
+    <div th:replace="/fragments/header :: header-css"/>
+
+</head>
+<body>
+
+<div th:replace="/fragments/header :: header"/>
+
+<div class="container">
+    
+    <!--VERSION 1.0-->
+    <!--<img th:src="@{/images/bangkok.jpg}" style="width:600px;height:300px"/>--> 
+    
+    <!--VERSION 2.0-->
+    <img th:src="@{/images/singapore.jpg}" style="width:600px;height:300px"/>
+
+    <!--VERSION 3.0-->
+ 	<!--<img th:src="@{/images/paris.jpg}" style="width:600px;height:300px"/>-->
+
+    <div th:replace="/fragments/posts :: posts"/>
+
+    <div th:replace="/fragments/pagination :: pagination(URLparameter='/home')"/>
+
+</div>
+
+<div th:replace="/fragments/footer :: footer"/>
+
+</body>
+</html>
