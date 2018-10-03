@@ -1,6 +1,6 @@
 # CI/CD
 
-CI/CD demonstration of the Spring Boot Blog demo.
+CI/CD demonstration of the Spring Boot Blog demo at https://github.com/reljicd/spring-boot-blog
 
 ## Spring Boot Blog Demo
 
