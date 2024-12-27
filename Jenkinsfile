@@ -24,16 +24,22 @@ pipeline{
           }
         }*/  
     }
-    stage('Code Analysis'){
+    stage('SonarQube scan'){
       /*when {
         expression {
             return env['GIT_BRANCH'].contains('master')
         }
       }*/
       steps {
-        sh "docker run --rm -v ${workspace}:/usr/src/mymaven -v ${workspace}/maven-conf:/usr/share/maven/ref/ -v m2maven:/root/.m2:rw -w /usr/src/mymaven maven:3.5-alpine mvn sonar:sonar"
+	  sh "echo sonarqube"    
+        //sh "docker run --rm -v ${workspace}:/usr/src/mymaven -v ${workspace}/maven-conf:/usr/share/maven/ref/ -v m2maven:/root/.m2:rw -w /usr/src/mymaven maven:3.5-alpine mvn sonar:sonar"
       }
-    }   
+    }
+    stage('OWASP ZAP scan'){
+      steps {
+        sh "echo run owasp zap"
+      }
+    } 
     /*stage('Push to Artifactory') { 
       when {
         expression {
