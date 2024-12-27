@@ -1,8 +1,8 @@
-@Library('jenkins-library') _
+//@Library('jenkins-library') _
 
 pipeline{
 
-  agent {label 'jenkinsagent'} 
+  //agent {label 'jenkinsagent'} 
     
   stages { 
 	  /*stage('Checkout config files'){
@@ -18,23 +18,23 @@ pipeline{
       steps {
             sh "docker run --rm -v ${workspace}:/usr/src/mymaven -v m2maven:/root/.m2:rw -w /usr/src/mymaven maven:3.5-alpine mvn clean package"
       }
-        post {
+        /*post {
           always {
                   junit "target/surefire-reports/*.xml"
           }
-        }  
+        }*/  
     }
     stage('Code Analysis'){
-      when {
+      /*when {
         expression {
             return env['GIT_BRANCH'].contains('master')
         }
-      }
+      }*/
       steps {
         sh "docker run --rm -v ${workspace}:/usr/src/mymaven -v ${workspace}/maven-conf:/usr/share/maven/ref/ -v m2maven:/root/.m2:rw -w /usr/src/mymaven maven:3.5-alpine mvn sonar:sonar"
       }
     }   
-    stage('Push to Artifactory') { 
+    /*stage('Push to Artifactory') { 
       when {
         expression {
             return env['GIT_BRANCH'].contains('master')
@@ -57,9 +57,10 @@ pipeline{
                   server.publishBuildInfo(buildInfo)
             }
       }
-    }//end push binaries 
+    }//end push binaries
+    */
   }//end stages  
-  post {
+  /*post {
     always {
         script {
           try {
@@ -70,6 +71,6 @@ pipeline{
             echo "Slack offline"
           }
         }  
-    }
+    }*/
   }    
 }//end pipeline
