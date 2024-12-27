@@ -39,7 +39,12 @@ pipeline{
       steps {
         sh "echo run owasp zap"
       }
-    } 
+    }
+    stage('Deploy to AKS'){
+      steps {
+        sh "echo deploy"
+      }
+    }   
     /*stage('Push to Artifactory') { 
       when {
         expression {
