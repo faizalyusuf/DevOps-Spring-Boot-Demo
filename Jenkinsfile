@@ -77,6 +77,6 @@ pipeline{
             echo "Slack offline"
           }
         }  
-    }*/
-  }    
+    }
+  } */   
 }//end pipeline
