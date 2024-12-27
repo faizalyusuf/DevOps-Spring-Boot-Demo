@@ -2,7 +2,7 @@
 
 pipeline{
 
-  //agent {label 'jenkinsagent'} 
+  agent {label 'agent'} 
     
   stages { 
 	  /*stage('Checkout config files'){
