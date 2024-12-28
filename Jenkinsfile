@@ -37,7 +37,7 @@ pipeline{
     }
     stage('OWASP ZAP scan'){
       steps {
-        sh "echo run owasp zap"
+        sh "docker run -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://20.6.166.53:8090/home"
       }
     }
     stage('Deploy to AKS'){
